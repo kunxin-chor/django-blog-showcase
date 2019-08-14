@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
+from .models import MyUser
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
 class UserLoginForm(forms.Form):
@@ -12,7 +13,7 @@ class UserRegistrationForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput, label="Password Confirmation")
     
     class Meta:
-        model = User
+        model = MyUser
         fields = ['email', 'username', 'password1', 'password2']
         
     # 'magic function' to clean password2
@@ -29,6 +30,7 @@ class UserRegistrationForm(UserCreationForm):
         return password2
         
     def clean_email(self):
+        User = get_user_model()
         # extract the email from the request
         # (cleaned_data means data that has been processed to remove special characters etc.)
         email = self.cleaned_data.get('email')

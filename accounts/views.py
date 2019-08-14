@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegistrationForm
 
@@ -48,6 +49,7 @@ def profile(request):
     return render(request, 'profile.html')
     
 def register(request):
+    User = get_user_model()
     if request.method == "POST":
         # process the form
         form = UserRegistrationForm(request.POST) #create the form object and populate it with the data from the user input

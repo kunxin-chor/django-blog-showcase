@@ -14,7 +14,9 @@ def create_post(request):
         # process the from
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            new_blog_post = form.save(commit=False)
+            new_blog_post.author = request.user
+            new_blog_post.save()
             return redirect(reverse('show_posts'))
     else:
         form = PostForm()
