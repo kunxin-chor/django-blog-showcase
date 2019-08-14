@@ -10,6 +10,19 @@
 </head>
 <body>
     <div class='container-fluid'>
+         <ul class='nav'>
+        {%if user.is_authenticated %}
+         <li class='nav-item'><a class='nav-link' href="{% url 'logout' %}">Logout</a></li>
+         <li class='nav-item'><a class='nav-link' href="{% url 'profile' %}">Profile</a></li>
+         {%else%}
+        <li class='nav-item'><a class='nav-link' href="{% url 'login' %}">Login</a></li>
+        <li class='nav-item'><a class='nav-link' href="{% url 'register' %}">Register</a></li>
+        {%endif%}
+    </ul>
+    
+    {% if user.is_authenticated %}
+            <p>Currently logged in as: {{ request.user.username }}</p>
+    {% endif %}
         <h1 class='title'>{%block page_heading%}{%endblock%}</h1>
         <div class='main'>
             {%block content %}{%endblock%}

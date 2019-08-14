@@ -5,6 +5,7 @@
 {%block page_heading%}Welcome to my Blog!{%endblock%}
 
 {%block content %}
+<a href='{% url 'create_post'%}' class='btn btn-primary'>Add New</a>
     <img src='{% static 'posts/images/dog.jpg' %}' />
     <ul>
         {%for p in posts %}
