@@ -2,6 +2,9 @@ from django.test import TestCase
 from .models import Post
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from .forms import PostForm
+from django.utils.crypto import get_random_string 
+
 # Create your tests here.
 class PostTestCase(TestCase):
     
@@ -74,6 +77,43 @@ class PostTestCase(TestCase):
         results = Post.search(None)
         self.assertEquals(0, results.count())
  
-
+class PostFormTestCase(TestCase):
+    
+    def setUp(self):
+        User = get_user_model()
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        login = self.client.login(username='testuser', password='12345')
+        
+    def test_can_detect_valid_form(self):
+        form = PostForm({
+            'title' : 'ASD',
+            'content' : 'Quick Brown Fox'
+        })
+        self.assertEqual(True, form.is_valid())
+        
+    def test_can_detect_invalid_form(self):
+        form = PostForm({
+            'title' : '',
+            'content' : 'Quick Brown Fox'
+        })
+        self.assertEqual(False, form.is_valid())
+        
+        form = PostForm({
+            'title' : 'ASD',
+            'content' : ''
+        })
+        self.assertEqual(False, form.is_valid())
+        
+        form = PostForm({
+            'title' : '',
+            'content' : ''
+        })
+        self.assertEqual(False, form.is_valid())
+        
+        form = PostForm({
+            'title' : get_random_string(256),
+            'content' : ''
+        })
+        self.assertEqual(False, form.is_valid())
         
         
