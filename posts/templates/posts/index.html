@@ -10,6 +10,9 @@
     <ul>
         {%for p in posts %}
         <li>
+        {% if p.cover %}
+            <img src="{{p.cover.url}}" />
+        {% endif %}
          {{ p.title }}
         </li>
         {%endfor%}
