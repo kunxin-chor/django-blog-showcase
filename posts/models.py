@@ -9,3 +9,17 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+        
+    def get_excerpt(self):
+        if self.title is not None and self.content is not None:
+            return self.title + " - " + self.content[0:25]
+        return "N/A"
+        
+    @staticmethod
+    def search(title):
+        if title is None:
+            title = ""
+        results = Post.objects.filter(title=title)
+        return results
+        
+        

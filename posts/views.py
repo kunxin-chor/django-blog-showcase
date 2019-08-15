@@ -23,3 +23,8 @@ def create_post(request):
         return render(request, 'posts/create.html', {
             'form': form
         })
+        
+def search_post(request):
+    search_terms = request.GET['search_terms']
+    Post.objects.filter(title=search_terms)
+    
