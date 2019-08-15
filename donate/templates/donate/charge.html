@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_heading %}Donate!{%endblock%}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="{{ key }}"
+          data-description="Donate"
+          data-amount="{{amount}}"
+          data-locale="auto"></script>
+  <input type='hidden' name='amount' value='{{amount}}'/>
+</form>
+
+{%endblock%}
