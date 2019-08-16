@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{%block page_heading %} Donate! {%endblock%}
+
+{%block content %}
+<form method='GET' action='{% url 'charge' %}'>
+    <div class='form-group'>
+        <label class='label'>
+            Amount:
+        </label>
+        <input type='text' name='amount' class='form-control'/>
+    </div>
+    <input type='submit' value='Donate' class='btn btn-primary'/>
+</form>
+
+{%endblock%}
