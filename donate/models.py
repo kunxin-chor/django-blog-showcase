@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Order(models.Model):
+class Charge(models.Model):
     full_name = models.CharField(max_length=50, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)
     country = models.CharField(max_length=40, blank=False)
