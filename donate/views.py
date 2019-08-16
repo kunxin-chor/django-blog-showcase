@@ -1,28 +1,39 @@
-from django.shortcuts import render
-from .forms import ChargeForm
+from django.shortcuts import render, reverse, HttpResponse
 from django.conf import settings
 import stripe
-# Create your views here.
-def index(request):
-    return render(request, 'donate/index.html', {
-        'form' : ChargeForm()
-    })
-        
-def charge(request):
-    if request.method == 'GET':
-        amount = int(request.GET['amount']) * 100
-        key = settings.STRIPE_PUBLISHABLE_KEY
-        return render(request, 'donate/charge.html',{
-            'key' : key,
-            'amount' : amount
-        })
-    else:
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        charge = stripe.Charge.create(
-            amount=int(request.POST['amount']),
-            currency='usd',
-            description='A Django charge',
-            source=request.POST['stripeToken']
-        )
-        return render(request, "donate/thank-you.html")
+
+
+def donate(request):
+    return render(request, 'donate/donate.html')
     
+def charge(request):
+    amount = int( request.GET['amount']) * 100
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    session = stripe.checkout.Session.create(payment_method_types=['card'],
+        line_items=[
+            {
+                'name': 'Donation',
+                'description':'A simple donation',
+                'amount':amount ,
+                'currency':'usd',
+                'quantity':1
+            }
+        ],
+        success_url= request.build_absolute_uri(reverse('success')),
+        cancel_url=request.build_absolute_uri(reverse('cancel'))
+    )
+    return render(request, 'donate/charge.html', {
+        'CHECKOUT_SESSION_ID': session.id,
+        'publishable_key': settings.STRIPE_PUBLISHABLE_KEY
+    })
+    
+   
+    
+def success(request):
+    return HttpResponse("We have gotten your money")
+    
+def cancel(request):
+    return HttpResponse("No, don't go!")
+        
+        

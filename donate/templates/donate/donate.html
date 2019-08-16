@@ -6,7 +6,10 @@
 
 {% block content %}
 <form method="GET" action="{% url 'charge' %}">
-    {{ form | crispy }}
+    <div class='form-group'>
+        <label class='label'>Amount</label>
+        <input type='text' class='form-control' name='amount'/>
+    </div>
     <input type="submit" value="Donate!"/>
 </form>
 
