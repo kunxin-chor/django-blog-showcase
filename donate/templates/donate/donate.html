@@ -3,7 +3,7 @@
 {% block page_heading %}Please donate!{%endblock%}
 
 {% block content %}
-<form method='GET' action="">
+<form method='GET' action="{% url 'charge' %}">
     <div class='form-group'>
         <label class='control'>Amount:</label>
         <input type='text' name='amount' class='form-control'>
