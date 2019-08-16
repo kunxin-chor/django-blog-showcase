@@ -20,6 +20,16 @@
         {%endif%}
     </ul>
     
+    {% if messages %}
+        <div class="alert alert-success">
+            <div class="messages">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    
     {% if user.is_authenticated %}
             <p>Currently logged in as: {{ request.user.username }}</p>
     {% endif %}

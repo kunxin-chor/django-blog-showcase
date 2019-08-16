@@ -1,6 +1,6 @@
 $(function() {
     $("#payment-form").submit(function() {
-        alert("submitted")
+        //alert("submitted")
         var form = this;
         // create a card object and we save to it the credit card number details
         var card = {
@@ -17,7 +17,7 @@ $(function() {
             // To save the stripe token into the form itself
             $("#id_stripe_id").val(response.id);
             
-            console.log(response);
+            //console.log(response);
 
             // Prevent the credit card details from being submitted
             // to our server
@@ -26,8 +26,8 @@ $(function() {
             $("#id_expiry_month").removeAttr('name');
             $("#id_expiry_year").removeAttr('name');
 
-            //form.submit();
-            return 0;
+            form.submit();
+            //return 0;
         } else {
             $("#stripe-error-message").text(response.error.message);
             $("#credit-card-errors").show();
