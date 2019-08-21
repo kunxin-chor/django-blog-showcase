@@ -18,6 +18,12 @@ def create_post(request):
             new_blog_post.author = request.user
             new_blog_post.save()
             return redirect(reverse('show_posts'))
+        else:
+            for e in form.errors.items():
+                print(e)
+            return render(request, 'posts/create.html',{
+                'form':form
+            })
     else:
         form = PostForm()
         return render(request, 'posts/create.html', {
