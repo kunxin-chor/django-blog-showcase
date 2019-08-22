@@ -11,7 +11,7 @@
         {%for p in posts %}
         <li>
         {% if p.cover %}
-            <img src="{{p.cover.url}}" />
+            <img src="{{p.cover.cdn_url}}" />
         {% endif %}
          {{ p.title }}
         </li>

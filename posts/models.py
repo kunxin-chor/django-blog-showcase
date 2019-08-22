@@ -1,12 +1,18 @@
 from django.db import models
 from accounts.models import MyUser
-# Create your models here.
+
+#Import image field from UploadCare
+from pyuploadcare.dj.models import ImageField
+
+
 class Post(models.Model):
     title = models.CharField(max_length=255, blank=False)
     content = models.TextField(blank=False)
     created_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    cover = models.ImageField(upload_to='images/', null=True)
+    
+    # cover is using UploadCare's ImageField
+    cover = ImageField(blank=True, manual_crop="")
     
     def __str__(self):
         return self.title

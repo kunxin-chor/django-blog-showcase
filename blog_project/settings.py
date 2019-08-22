@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pyuploadcare.dj',
     'crispy_forms',
     'posts',
     'accounts',
@@ -140,3 +141,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"]
 STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
+UPLOADCARE_SECRET_KEY = os.environ['UPLOADCARE_SECRET_KEY']
+UPLOADCARE_PUBLIC_KEY = os.environ['UPLOADCARE_PUBLIC_KEY']
+
+UPLOADCARE = {
+    'pub_key': UPLOADCARE_PUBLIC_KEY,
+    'secret': UPLOADCARE_SECRET_KEY,
+}
