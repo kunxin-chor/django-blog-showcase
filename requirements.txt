@@ -21,6 +21,7 @@ pylint==1.8.1
 pylint-django==0.8.0
 pylint-flask==0.5
 pylint-plugin-utils==0.5
+PyMySQL==0.9.3
 python-dateutil==2.8.0
 pytz==2019.2
 pyuploadcare==2.6.0
